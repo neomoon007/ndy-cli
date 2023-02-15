@@ -1,7 +1,8 @@
 # To-Do List CLI
 
-# Create a function that initiates the program menu
+# Create a function that initiates the program
 def main():
     print("Hello, World!")
 
-main()
+if __name__ == "__main__":
+    main()
