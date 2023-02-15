@@ -2,7 +2,7 @@
 from termcolor import colored
 
 
-def format_header(text, color="white", width=60): 
+def header(text, color="white", width=60): 
     
     # Make the text argument uppercase
     header_text = text.upper()
