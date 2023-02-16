@@ -3,6 +3,7 @@ from termcolor import colored
 from . . utils import screen
 from . . utils import header
 from . . utils.color import color_print, prompt
+from . . commands import task
 
 
 # Create a function that shows the main menu of the application
