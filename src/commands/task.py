@@ -15,15 +15,18 @@ def add(name, date_input=0): # Reacts to the `add` command
 
 def edit(name): # Reacts to the `edit` command
     # WIP
+    pass
 
 
 def complete(name): # Reacts to the `comp` command
     # WIP
+    pass
 
 
 def delete(name): # Reacts to the `del` command
     # WIP
-
+    pass
 
 def query(name): # Reacts to the `list` command
     # WIP
+    pass
