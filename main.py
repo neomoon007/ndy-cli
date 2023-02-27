@@ -3,6 +3,7 @@ from src.interface import menu
 from src.commands.command_input import input_handler
 from src.config import prompt
 
+
 # Create a function that initiates the program
 def main():
     # Display the menu
