@@ -1,2 +1,1 @@
-# todo-list-CLI
-To-Do List CLI Application written in Python3
+# Nut Done Yet (CLI)
