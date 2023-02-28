@@ -12,6 +12,7 @@ setup(
     name="ndy-cli",
     version=version,
     author="neomoon007 (Marcos Costa)",
+    author_email="costamarcos404@gmail.com",
     url='https://github.com/neomoon007/ndy-cli',
     license_files=['LICENSE'],
     description=description,
