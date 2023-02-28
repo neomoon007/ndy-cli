@@ -16,4 +16,4 @@ At the moment, there is no functionality available in the NDY CLI Application. S
 Contributions to the NDY CLI Application are welcome! If you'd like to contribute, please submit a pull request.
 
 ## License
-The NDY CLI Application is licensed under the MIT License.
+The NDY CLI Application is licensed under the [MIT License](LICENSE).
