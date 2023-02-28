@@ -13,11 +13,13 @@ setup(
     version=version,
     author="neomoon007 (Marcos Costa)",
     url='https://github.com/neomoon007/ndy-cli',
+    license_files=['LICENSE'],
     description=description,
     long_description_content_type="text/markdown",
     long_description=long_description,
     packages=find_packages(),
     install_requires=['termcolor'],
+    python_requires='>=3.7',
     keywords=['python', 'cli', 'todolist'],
     classifiers=[
         "Development Status :: 1 - Planning",
