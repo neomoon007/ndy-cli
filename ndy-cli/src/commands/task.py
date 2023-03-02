@@ -1,32 +1,61 @@
-# Tasks module, add, complete and remove tasks from the 'tasks' database
-from .. import database as db
+from .. database import conn, cursor
+from termcolor import colored
 
-def add(name, date_input=0): # Reacts to the `add` command
+
+def add(task_title, date_input=0):  # Reacts to the `add` command
     # Insert a task with the name given into the DB
-    db.cursor.execute("INSERT INTO tasks (name, done) VALUES (?, ?)", (name, False))
-    
+    cursor.execute(
+        "INSERT INTO tasks (name, done) VALUES (?, ?)", (task_title, False))
+
     # Save the changes
-    db.conn.commit()
+    conn.commit()
 
-    # Close the DB connection
-    db.cursor.close()
-    db.conn.close()
+    print(colored(task_title + "was added successfully.", "green"))
 
 
-def edit(name): # Reacts to the `edit` command
-    # WIP
+def edit(task_id):
+    # TODO: create the task.edit() function
     pass
 
 
-def complete(name): # Reacts to the `comp` command
-    # WIP
+def complete(task_id):
+    num_task_id = int(task_id[0])
+    cursor.execute(
+        "SELECT done FROM tasks WHERE id=?", (1,)
+    )
+
+    task_already_completed = cursor.fetchone()[0]
+
+    # Toggle task 'done' status
+    if task_already_completed == 1:
+        cursor.execute(
+            "UPDATE tasks SET done = ? WHERE id = ?", (False, num_task_id)
+        )
+        conn.commit()
+
+    elif task_already_completed == 0:
+        cursor.execute(
+            "UPDATE tasks SET done = ? WHERE id = ?", (True, num_task_id)
+        )
+        conn.commit()
+
+
+def delete(task_id):
+    # TODO: create the task.delete() function
     pass
 
 
-def delete(name): # Reacts to the `del` command
-    # WIP
-    pass
+def query(filter):
+    # TODO: Add filter functionality
+    # Get all tasks from the database
+    cursor.execute("SELECT * FROM tasks")
 
-def query(name): # Reacts to the `list` command
-    # WIP
-    pass
+    # Fetches all rows from resultset
+    tasks = cursor.fetchall()
+
+    # Print the tasks
+    # TODO: transform integer to string (task[0])
+    for task in tasks:
+        print("ID: " + task[0])
+        print("Title:" + task[1])
+        print("Done:" + task[2])

@@ -1,83 +1,102 @@
-# This module formats the string input from the user prompt
-
 from termcolor import colored
 
 from . import task
 
-# Example input string: "add 'walk the dog' on monday"
+# Example input string: 'add "walk the dog" on monday'
 # Example output: calls task.add("walk the dog", "monday")
 
-# Create a funtion that formats the 'user_input' string
-def input_handler(string):
-    # Check if the string is empty
-    if string == "":
-        print(colored("ERROR: Please give a valid command.", "red"))
-        return 
+functions = {
+    'add': task.add,
+    'edit': task.edit,
+    'comp': task.complete,
+    'list': task.query,
+    'del': task.delete
+}
+one_line_commands = ['list']
 
-    # Check if the input is to exit the program
-    if string.strip() == "quit":
+
+def input_handler(input):
+    if input.strip() == "quit":
         return "quit"
 
+    if not is_valid_input(input):
+        return
+
+    processed_arguments = process_arguments(input)
+    command_input(input, processed_arguments)
+
+
+def is_valid_input(input):
+    # Check if the string is empty
+    if input == "":
+        print(colored("ERROR: Please give a valid command.", "red"))
+        return False
+
     # Split the sentence in a list of words
-    words = string.split() 
+    words = input.split()
 
     # Create a list with the valid commands
-    commands = ["add", "edit", "del", "comp", "list"]
+    commands = functions
+
+    command_passed = words[0]
+
     # Check if the command passed is not valid
-    if words[0] not in commands:
+    if command_passed not in commands:
         print(colored("ERROR: Please give a valid command.", "red"))
+        return False
 
     # Check if the command has no arguments
-    if len(words) == 1:
+    if len(words) == 1 and command_passed not in one_line_commands:
         print(colored("ERROR: No arguments passed.", "red"))
-        return
-    
-    # Command input from the user
-    command = words[0]
+        return False
+
+    return True
+
+
+def process_arguments(input):
     # Stores the arguments
-    arguments = [] 
+    processed_arguments = []
+
     # Store current_argument being processed
     current_argument = ""
-    # Eliminate the "on" word
-    delete_word = False
-    # Create a list of words to ignore from the input
-    exclude_words = ["on","to","at"]
 
+    ignore_current_word = False
+    words_to_ignore = ["on", "to", "at"]  # Ignore 'glue' words
+    raw_arguments = input.split()[1:]
 
-    # For loop that processes the arguments inside the words list
-    for word in words[1:]:
+    # Loop that processes the arguments inside the words list
+    for argument in raw_arguments:
         # If a word starts with ' and there's no argument being processed
-        if word.startswith("'") and not current_argument:
+        if argument.startswith("'") and not current_argument:
             # It stores that word in the current_argument variable
-            current_argument = word
+            current_argument = argument
         # If however, there's an argument being processed:
         elif current_argument:
             # It adds the word to the current argument, making it bigger
-            current_argument += " " + word
+            current_argument += " " + argument
             # And if it ends with ':
-            if word.endswith("'"):
+            if argument.endswith("'"):
                 # It adds the current_argument to the arguments list
-                arguments.append(current_argument.strip("'"))
+                processed_arguments.append(current_argument.strip("'"))
                 # And finishes processing the current argument
                 current_argument = ""
                 # Allow to delete the next words if in exclude_words list
-                delete_word = True
+                ignore_current_word = True
         else:
             # If not allowed to delete word, append it to arguments
-            if delete_word == False:
-                arguments.append(word)
+            if ignore_current_word is False:
+                processed_arguments.append(argument)
             # If word is not a word that can be excluded, add it to arguments
-            elif word not in exclude_words:
-                arguments.append(word)
-   
+            elif argument not in words_to_ignore:
+                processed_arguments.append(argument)
+
+    return processed_arguments
+
+
+def command_input(input, cmd_arguments):
+    command = input.split()[0]
+
     # Calls the function based on the command given by the user
-    if command == "add":
-        task.add(*arguments)
-    elif command == "edit":
-        task.edit(*arguments)
-    elif command == "del":
-        task.delete(*arguments)
-    elif command == "comp":
-        task.complete(*arguments)
-    elif command == "list":
-        task.list(*arguments)
+    for function in functions:
+        if command == function:
+            functions[function](cmd_arguments)

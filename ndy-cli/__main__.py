@@ -2,6 +2,7 @@
 from src.interface import menu
 from src.commands.command_input import input_handler
 from src.config import prompt
+from src.database import cursor, conn
 
 
 # Create a function that initiates the program
@@ -15,6 +16,10 @@ def main():
         user_input = input_handler(prompt())
         # If the input is quit, it exits the program
         if user_input == "quit":
+
+            # Close db connection
+            cursor.close()
+            conn.close()
             break
 
 
