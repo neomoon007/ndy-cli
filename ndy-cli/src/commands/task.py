@@ -54,8 +54,9 @@ def query(filter):
     tasks = cursor.fetchall()
 
     # Print the tasks
-    # TODO: transform integer to string (task[0])
     for task in tasks:
-        print("ID: " + task[0])
-        print("Title:" + task[1])
-        print("Done:" + task[2])
+        print("-" * 60)
+        print("ID: " + str(task[0]))
+        print("Title: " + str(task[1]))
+        print("Done: " + str(task[2]))
+        print(" ")
