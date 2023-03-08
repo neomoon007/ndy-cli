@@ -2,15 +2,18 @@ from .. database import conn, cursor
 from termcolor import colored
 
 
-def add(task_title, date_input=0):  # Reacts to the `add` command
+def add(task_title, date_input=0):
     # Insert a task with the name given into the DB
+
     cursor.execute(
-        "INSERT INTO tasks (name, done) VALUES (?, ?)", (task_title, False))
+        "INSERT INTO tasks (name, done) VALUES (?, ?)",
+        (task_title[0], False))
 
     # Save the changes
     conn.commit()
 
-    print(colored(task_title + "was added successfully.", "green"))
+    print(colored("\"" + task_title[0] + "\"" +
+          " was added successfully.", "green"))
 
 
 def edit(task_id):
@@ -21,19 +24,23 @@ def edit(task_id):
 def complete(task_id):
     num_task_id = int(task_id[0])
     cursor.execute(
-        "SELECT done FROM tasks WHERE id=?", (1,)
+        "SELECT done FROM tasks WHERE id=?", (num_task_id,)
     )
 
-    task_already_completed = cursor.fetchone()[0]
+    task_already_completed = cursor.fetchone()
+
+    if task_already_completed is None:
+        print(colored("ERROR: Invalid task id.", "red"))
+        return
 
     # Toggle task 'done' status
-    if task_already_completed == 1:
+    if task_already_completed[0] == 1:
         cursor.execute(
             "UPDATE tasks SET done = ? WHERE id = ?", (False, num_task_id)
         )
         conn.commit()
 
-    elif task_already_completed == 0:
+    elif task_already_completed[0] == 0:
         cursor.execute(
             "UPDATE tasks SET done = ? WHERE id = ?", (True, num_task_id)
         )
@@ -41,8 +48,19 @@ def complete(task_id):
 
 
 def delete(task_id):
-    # TODO: create the task.delete() function
-    pass
+    num_task_id = int(task_id[0])
+    cursor.execute(
+        "SELECT * FROM tasks WHERE id=?", (num_task_id,)
+    )
+
+    if cursor.fetchone() is None:
+        print(colored("ERROR: Invalid task id.", "red"))
+
+    else:
+        cursor.execute(
+            "DELETE FROM tasks WHERE id=?", (num_task_id,)
+        )
+        conn.commit()
 
 
 def query(filter):

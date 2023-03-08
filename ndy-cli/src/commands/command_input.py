@@ -67,7 +67,7 @@ def process_arguments(input):
     # Loop that processes the arguments inside the words list
     for argument in raw_arguments:
         # If a word starts with ' and there's no argument being processed
-        if argument.startswith("'") and not current_argument:
+        if argument.startswith("\"") and not current_argument:
             # It stores that word in the current_argument variable
             current_argument = argument
         # If however, there's an argument being processed:
@@ -75,9 +75,9 @@ def process_arguments(input):
             # It adds the word to the current argument, making it bigger
             current_argument += " " + argument
             # And if it ends with ':
-            if argument.endswith("'"):
+            if argument.endswith("\""):
                 # It adds the current_argument to the arguments list
-                processed_arguments.append(current_argument.strip("'"))
+                processed_arguments.append(current_argument.strip("\""))
                 # And finishes processing the current argument
                 current_argument = ""
                 # Allow to delete the next words if in exclude_words list
