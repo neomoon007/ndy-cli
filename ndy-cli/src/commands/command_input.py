@@ -64,12 +64,18 @@ def process_arguments(input):
     words_to_ignore = ["on", "to", "at"]  # Ignore 'glue' words
     raw_arguments = input.split()[1:]
 
+    # If there's just one arguments, return it without double quotes
+    if len(raw_arguments) == 1:
+        processed_arguments.append(raw_arguments[0].strip("\""))
+        return processed_arguments
+
     # Loop that processes the arguments inside the words list
     for argument in raw_arguments:
         # If a word starts with ' and there's no argument being processed
         if argument.startswith("\"") and not current_argument:
             # It stores that word in the current_argument variable
             current_argument = argument
+
         # If however, there's an argument being processed:
         elif current_argument:
             # It adds the word to the current argument, making it bigger

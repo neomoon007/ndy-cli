@@ -1,5 +1,6 @@
-from .. database import conn, cursor
 from termcolor import colored
+
+from .. database import conn, cursor
 
 
 def add(task_title, date_input=0):
@@ -64,13 +65,23 @@ def delete(task_id):
 
 
 def query(filter):
-    # TODO: Add filter functionality
     # Get all tasks from the database
-    cursor.execute("SELECT * FROM tasks")
+
+    # TODO: Add filter functionality
+    # Filter:
+    # Check if the filter == "all": (retrieve all tasks)
+    # Check if the filter is a valid human readable date:
+    #   (retrieve all tasks that match the given date)
+    #
+    # Check if the filter is a string: (retrieve tasks that have that string)
+
+    if filter == "all":
+        cursor.execute("SELECT * FROM tasks")
 
     # Fetches all rows from resultset
     tasks = cursor.fetchall()
 
+    # TODO: Use python rich package and format results as a table
     # Print the tasks
     for task in tasks:
         print("-" * 60)
