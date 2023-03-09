@@ -1,7 +1,7 @@
 # NutDoneYet-CLI
 NutDoneYet-CLI is a task management tool that allows you to easily manage your to-do list from the command line. It is currently under development and does not have any functionality at the moment.
 
-<img alt="GitHub" src="https://img.shields.io/github/license/neomoon007/ndy-cli">
+<img alt="GitHub repo license" src="https://img.shields.io/github/license/neomoon007/ndy-cli"> <img alt="GitHub release" src="https://img.shields.io/github/v/release/neomoon007/ndy-cli?include_prereleases"> <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/ndy-cli">
 
 ## Features
 NutDoneYet-CLI will include the following features:
