@@ -1,6 +1,7 @@
 from termcolor import colored
 
 from .. database import conn, cursor
+from .. interface.tasks_table import display_tasks
 # from .. utils.dateparser import dateparser
 
 
@@ -66,31 +67,29 @@ def delete(task_id):
 
 
 def query(filter):
-    # Get all tasks from the database
-
     # TODO: Add filter functionality after adding human readable dates to add()
-    # Filter:
-    # Check if the filter == "all": (retrieve all tasks)
     if filter == "" or "all":
         cursor.execute("SELECT * FROM tasks")
         # Fetches all rows from resultset
         tasks = cursor.fetchall()
-    # Call parsedatetime and check if its return value is not None
+        display_tasks(tasks)
 
-    # if dateparser(filter) is not None:
+    # call parsedatetime and check if its return value is not none
+
+    # if dateparser(filter) is not none:
     #     formatted_date = dateparser(filter)
     #     cursor.execute()
 
-    # Check if the filter is a valid human readable date:
+    # check if the filter is a valid human readable date:
     #   (retrieve all tasks that match the given date)
     #
-    # Check if the filter is a string: (retrieve tasks that have that string)
+    # check if the filter is a string: (retrieve tasks that have that string)
 
     # TODO: Use python rich package and format results as a table
     # Print the tasks
-    for task in tasks:
-        print("-" * 60)
-        print("ID: " + str(task[0]))
-        print("Title: " + str(task[1]))
-        print("Done: " + str(task[2]))
-        print(" ")
+    # for task in tasks:
+    #     print("-" * 60)
+    #     print("ID: " + str(task[0]))
+    #     print("Title: " + str(task[1]))
+    #     print("Done: " + str(task[2]))
+    #     print(" ")
