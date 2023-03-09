@@ -18,4 +18,4 @@ At the moment, there is no functionality available in NutDoneYet-CLI. Stay tuned
 Contributions to NutDoneYet-CLI are welcome! If you'd like to contribute, please submit a pull request.
 
 ## License
-NutDoneYet-CLI is licensed under the [MIT License](LICENSE).
+NutDoneYet-CLI is licensed under the [MIT License](https://github.com/neomoon007/ndy-cli/blob/main/LICENSE).
